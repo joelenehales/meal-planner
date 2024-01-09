@@ -150,13 +150,22 @@ function select(recipe_id) {
     currently_selected = recipe_id;  // Update global variable tracking selected recipe
 
     selected_recipe_div_HTML.innerHTML = `<p>${recipe.name}</p>`;  // Update viewer
-    
-    if (recipe.is_added === false) {  // Recipe not added to menu
 
-        let add_button = document.getElementById("add-button");
+    // Reset "Add To Menu" button
+    document.getElementById("add-button");  // Remove button tied to previously selected item
+
+    var add_button = document.createElement('button');  // Create new button 
+    add_button.setAttribute("id", "add-button");
+    add_button.style.display = "block";
+    add_button.innerText = "Add to Menu";
+    add_button.disabled = true;
+    selected_recipe_div_HTML.appendChild(add_button);  // Add button to viewer
+
+    if (recipe.is_added === false){  // If recipe not added to "Menu"
+        
         add_button.disabled = false;  // Allow button to be clicked
         add_button.addEventListener('click', function(){addToMenu(recipe_id)}, {once: true});  // Tie click event to the function to add the recipe with the given ID. Only allow to be added once.
-    
+
     }
 
 }
@@ -183,6 +192,7 @@ function addToMenu(recipe_id) {
     recipe.is_added = true;  // Update attribute to indicate recipe is in the "Menu"
 
     document.getElementById("add-button").disabled = true;  // Do not allow "Add To Menu" button to be clicked again
+
 
 }
 
