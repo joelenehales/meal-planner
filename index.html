@@ -4,30 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Maker</title>
-    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body onload="displayRecipes();">
 
-    <div>
+    <section>
         <h2>Recipe List</h2>
         <ul id="recipe-list"></ul>
-    </div>
+    </section>
 
     <div>
-        <h2>Selected: </h2>
-        <div id="selected-recipe"></div>
-        <button id="add-button" style="display: none" disabled>Add to menu</button>
+        <section>
+            <h2>Selected: </h2>
+            <div id="selected-recipe"></div>
+            <button id="add-button" style="display: none" disabled>Add to menu</button>
+        </section>
+
+        <section>
+            <h2>Menu</h2>
+            <ul id="menu-list"></ul>
+        </section>
     </div>
 
-    <div>
-        <h2>Menu</h2>
-        <ul id="menu-list"></ul>
-    </div>
-
-    <div>
+    <section>
         <h2>Shopping List</h2>
         <ul id="shopping-list"></ul>
-    </div>
+    </section>
 
     <script src="./script.js"></script>
 

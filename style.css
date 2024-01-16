@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    width: 95vw;
+    margin: auto;  /* Center horizontally on the page */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+section {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+ul { /* Recipe list, Menu, Shopping list */
+    margin: 0;
+    padding-left: 0; /* Remove the indentation for each item by default */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+li {
+    margin: 0;
+    list-style-type: none; /* Remove the bullet points */
+}
+
+#recipe-list li {
+    margin: 5px;
+}
+
+#menu-list li {  /* Menu item text and remove button */
+    display: flex;
+    justify-content: space-between;
+}
+
+#menu-list p {
+    margin-right: 5px;
+}
+
+#menu-list button {
+    margin-left: 5px;
+}
