@@ -31,10 +31,12 @@ li {
     list-style-type: none; /* Remove the bullet points */
 }
 
+/* Recipe list */
 #recipe-list li {
     margin: 5px;
 }
 
+/* Menu item */
 #menu-list li {  /* Menu item text and remove button */
     display: flex;
     justify-content: space-between;
@@ -46,4 +48,19 @@ li {
 
 #menu-list button {
     margin-left: 5px;
+}
+
+/* Selected viewer ingredients and shopping list */
+.ingredient-count li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.ingredient-count p {  /* Ingredient name */
+    margin: 0;
+}
+
+.ingredient-count span {  /* Number of recipes */
+    margin: 0;
 }
