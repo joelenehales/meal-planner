@@ -1,7 +1,14 @@
 body {
-    display: flex;
     width: 95vw;
     margin: auto;  /* Center horizontally on the page */
+}
+
+main {
+    display: flex;
+}
+
+.column {
+    margin: 0 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,7 +20,7 @@ p {
 }
 
 section {
-    margin: 10px;
+    margin: 10px 0;
     padding: 10px;
     border: 2px solid black;
 }
@@ -36,13 +43,14 @@ li {
     margin: 5px;
 }
 
-/* Menu item */
-#menu-list li {  /* Menu item text and remove button */
+/* Menu list */
+#menu-list li {  /* Menu item */
     display: flex;
     justify-content: space-between;
+    margin: 5px;
 }
 
-#menu-list p {
+#menu-list p {  /* Menu item text */
     margin-right: 5px;
 }
 
@@ -59,8 +67,16 @@ li {
 
 .ingredient-count p {  /* Ingredient name */
     margin: 0;
+    margin-right: 5px;
+    vertical-align: center;
 }
 
 .ingredient-count span {  /* Number of recipes */
     margin: 0;
+    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    vertical-align: center;
+    border-radius: 50%;
 }

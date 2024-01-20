@@ -8,28 +8,43 @@
 </head>
 <body onload="displayRecipes();">
 
-    <section>
-        <h2>Recipe List</h2>
-        <ul id="recipe-list"></ul>
-    </section>
+    <h1>Meal Planner</h1>
 
-    <div>
-        <section>
-            <h2>Selected: </h2>
-            <div id="selected-recipe"></div>
-            <button id="add-button" style="display: none" disabled>Add to menu</button>
-        </section>
+    <main>
+        
+        <div class="column">
+            <section>
+                <h2>Recipe List</h2>
+                <ul id="recipe-list"></ul>
+            </section>
+        </div>
 
-        <section>
-            <h2>Menu</h2>
-            <ul id="menu-list"></ul>
-        </section>
-    </div>
 
-    <section>
-        <h2>Shopping List</h2>
-        <ul id="shopping-list" class="ingredient-count"></ul>
-    </section>
+        <div class="column">
+            <section>
+                <h2 id="recipe-name"></h2>
+                <ul id="recipe-ingredients" class="ingredient-count"></ul>
+            </section>
+
+            <div id="add-button-div">
+                <button id="add-button" disabled>Add to
+                menu</button>
+            </div>
+        </div>
+
+        <div class="column">
+            <section>
+                <h2>Menu</h2>
+                <ul id="menu-list"></ul>
+            </section>
+
+            <section>
+                <h2>Shopping List</h2>
+                <ul id="shopping-list" class="ingredient-count"></ul>
+            </section>
+        </div>
+
+    </main>
 
     <script src="./script.js"></script>
 

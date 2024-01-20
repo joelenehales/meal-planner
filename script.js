@@ -33,7 +33,6 @@ class Recipe {
         this.id_num = -1;  // Recipe ID number corresponds to index in the array
         this.name = name;  // Recipe name
         this.ingredients = ingredients;  // Ingredients list
-        this.is_added = false;  // Tracks if the recipe is currently in the "Menu"
 
         all_recipes.push(this);  // Append recipe to the list
 
@@ -61,12 +60,32 @@ class MealPlan {
     }
 
     /**
+     * Checks if the given recipe has been added to the menu.
+     * @param {Recipe} recipe - Recipe to check for
+     * @returns True if the given recipe is in the menu, false otherwise
+     */
+     inMenu(recipe) {
+
+        var result;
+
+        if (this.menu.includes(recipe)) {  // Recipe is in the menu
+            result = true;
+        }
+        else {  // Recipe is not in the menu
+            result = false;
+        }
+
+        return result;
+
+    }
+
+    /**
      * Adds the given recipe to the menu and updates the shopping list.
-     * @param {Recipe} recipe Recipe to add to menu
+     * @param {Recipe} recipe - Recipe to add to menu
      */
     addRecipe(recipe) {
 
-        if (!this.menu.includes(recipe)) {  // Recipe not yet added to menu
+        if (!this.inMenu(recipe)) {  // Recipe not yet added to menu
 
             this.menu.push(recipe);       // Add recipe to menu
             this.#addIngredients(recipe); // Update shopping list
@@ -78,11 +97,11 @@ class MealPlan {
 
     /**
      * Removes the given recipe from the menu and updates the shopping list.
-     * @param {Recipe} recipe Recipe to remove from menu
+     * @param {Recipe} recipe - Recipe to remove from menu
      */
     removeRecipe(recipe) {
 
-        if (this.menu.includes(recipe)) {  // Recipe is in the menu
+        if (this.inMenu(recipe)) {  // Recipe is in the menu
     
             let index = this.menu.indexOf(recipe); // Find location of recipe in the menu
             this.menu.splice(index, 1);  // Remove recipe from menu
@@ -98,7 +117,7 @@ class MealPlan {
      * If an ingredient is already in the shopping list (ie. in another recipe),
      * the number of occurrences is incremented. Otherwise, a new entry for the
      * ingredient is added.
-     * @param {Recipe} recipe Recipe whose ingredients to add to the shopping list
+     * @param {Recipe} recipe - Recipe whose ingredients to add to the shopping list
      */
     #addIngredients(recipe) {
 
@@ -123,7 +142,7 @@ class MealPlan {
      * Updates the shopping list to remove one occurrence of each ingredients in
      * the given recipe. If the number of occurrences of an ingredient goes to
      * 0, the ingredient's entry is removed from the shopping list.
-     * @param {Recipe} recipe Recipe whose ingredients to remove from the
+     * @param {Recipe} recipe - Recipe whose ingredients to remove from the
      * shopping list
      */
     #removeIngredients(recipe) {
@@ -151,7 +170,7 @@ class MealPlan {
 
     /**
      * Find the number of menu recipes the given ingredient is in.
-     * @param {Ingredient} ingredient Ingredient to find information on
+     * @param {Ingredient} ingredient - Ingredient to find information on
      * @returns Number of menu recipes the given ingredient is in.
      */
     occurrencesOf(ingredient) {
@@ -172,8 +191,33 @@ class MealPlan {
 
     }
 
-}
+    /**
+     * Sorts the shopping list alphabetically, and sorts the occurrences array
+     * the same way.
+     */
+    sortShoppingList() {
 
+        // Reorganize the ingredients and occurrences into a single list of objects
+        var new_list = [];
+        for (i = 0; i < this.shopping_list.ingredients.length; i++) {
+            new_list[i] = {ingredient: this.shopping_list.ingredients[i],
+                       occurrences: this.shopping_list.occurrences[i]};
+        }
+
+        // Sort list alphabetically by ingredient name
+        new_list.sort(function(item1, item2) {
+            return ((item1.ingredient < item2.ingredient) ? -1 : ((item1.ingredient == item2.ingredient) ? 0 : 1));
+        });
+
+        // Overwrite shopping list with sorted list items
+        for (i = 0; i < new_list.length; i++) {
+            this.shopping_list.ingredients[i] = new_list[i].ingredient;
+            this.shopping_list.occurrences[i] = new_list[i].occurrences;
+        }
+
+    }
+
+}
 
 
 // TODO: Find a better way to store this
@@ -221,7 +265,7 @@ const avocado_toast = new Recipe('Avocado Toast', [avocado, bread, tomato_cherry
  *          0 - Recipe #1 and recipe #2 have the same name
  *         -1 - Recipe #1's name < recipe #2's name
  */
- function sortByName(recipe1, recipe2) {
+ function sortByRecipeName(recipe1, recipe2) {
 
     var result;  // Integer indicating the result of the comparison
 
@@ -241,7 +285,7 @@ const avocado_toast = new Recipe('Avocado Toast', [avocado, bread, tomato_cherry
 }
 
 
-all_recipes.sort(sortByName);  // Sort recipe list alphabetically
+all_recipes.sort(sortByRecipeName);  // Sort recipe list alphabetically
 
 // Set recipe ID numbers to correspond to index in array
 for (i = 0; i < all_recipes.length; i++) {
@@ -275,6 +319,29 @@ function displayRecipes() {
 
 
 /**
+ * Returns the hexadecimal colour to display the given recipe count with.
+ * @param {number} occurrences - Number of menu recipes an ingredient appears in.
+ */
+function getColour(occurrences) {
+
+    var colour;  // Hexadecimal colour to display the given recipe count with
+
+    if (occurrences == 0) {
+        colour = "#fac3c3";  // Pastel red
+    }
+    else if (occurrences == 1) {
+        colour = "#faf2b9";  // Pastel yellow
+    }
+    else {  // occurrences >= 2
+        colour = "#c8e1cc";  // Pastel green
+    }
+
+    return colour;
+
+}
+
+
+/**
  * Moves the recipe with the given ID number to the "Selected" viewer and Uupdates
  * the "Add To Menu" button to tie it to the recipe being viewed.
  * @param {number} recipe_id - Recipe ID of the recipe to view. Same as its index
@@ -285,46 +352,53 @@ function select(recipe_id) {
     const recipe = all_recipes[recipe_id];  // Recipe to move to viewer
     currently_selected = recipe_id;  // Update global variable tracking selected recipe
 
-    let selected_recipe_div_HTML = document.getElementById("selected-recipe");  // Reference to the HTML element displaying the selected recipe to view
-    selected_recipe_div_HTML.innerHTML = "";  // Clear previously selected recipe from viewer
-
-    // Update displayed recipe
-    let name = document.createElement("p");
+    // Update recipe name
+    let name = document.getElementById("recipe-name");
     name.innerText = `${recipe.name}`;
-    selected_recipe_div_HTML.appendChild(name);
-
 
     // Display list of ingredients with number that overlap with menu recipes
-    let ingredient_list_HTML = document.createElement("ul");
-    ingredient_list_HTML.classList.add("ingredient-count");
+    let ingredient_list_HTML = document.getElementById("recipe-ingredients"); 
+    ingredient_list_HTML.innerHTML = "";  // Clear previously selected recipe's ingredients
+
+    // Add heading 
+    let heading = document.createElement("li");
+    heading.innerHTML = `<h3>Ingredient</h3> <h3>Recipes</h3>`
+    ingredient_list_HTML.appendChild(heading);
 
     for (i = 0; i < recipe.ingredients.length; i++) {  // Iterate over recipe ingredients
 
         // Define ingredient data
         let ingredient = recipe.ingredients[i];
         let occurrences = meal_plan.occurrencesOf(ingredient);
+        let colour;
+
+        if (meal_plan.inMenu(recipe)) {  // Selected recipe is already in the menu
+            colour = "#e8e8e8";  // Colour occurrences gray
+        }
+        else {
+            colour = getColour(occurrences);  // Colour based on number
+        }
 
         // Create new list item for the ingredient
         let item = document.createElement("li");
-        item.innerHTML = `<p>${ingredient.name}</p> <span>${occurrences}</span>`
+        item.innerHTML = `<p>${ingredient.name}</p> <span style="background: ${colour}">${occurrences}</span>`
+
         ingredient_list_HTML.appendChild(item);
 
     }
 
-    selected_recipe_div_HTML.appendChild(ingredient_list_HTML);
-
-
     // Reset "Add To Menu" button
-    document.getElementById("add-button");  // Remove button action tied to previously selected item
+    var add_button_div = document.getElementById("add-button-div");
+    add_button_div.innerHTML = "";  // Remove button from previously selected item
 
     var add_button = document.createElement('button');  // Create new button 
     add_button.setAttribute("id", "add-button");
     add_button.style.display = "block";
     add_button.innerText = "Add to Menu";
     add_button.disabled = true;
-    selected_recipe_div_HTML.appendChild(add_button);  // Add button to viewer
+    add_button_div.appendChild(add_button);  // Add button below viewer
 
-    if (recipe.is_added === false){  // If recipe not added to "Menu"
+    if (!meal_plan.inMenu(recipe)){  // If recipe not added to "Menu"
         
         add_button.disabled = false;  // Allow button to be clicked
         add_button.addEventListener('click', function(){addToMenu(recipe_id)}, {once: true});  // Tie click event to the function to add the recipe with the given ID. Only allow to be added once.
@@ -341,22 +415,13 @@ function select(recipe_id) {
  * in the recipe list array.
  */
 function addToMenu(recipe_id) {
-
-    let menu_div_HTML = document.getElementById("menu-list");  // Reference to the HTML element displaying the chosen recipes
     
     const recipe = all_recipes[recipe_id];  // Recipe to add to menu
-
-    // Create new list item for the recipe
-    let li = document.createElement('li');
-    li.setAttribute("id", `menu-list-${recipe_id}`);
-    li.innerHTML = `<p>${recipe.name}</p><button onclick="removeFromMenu(${recipe_id})">Remove</button>`;
-    menu_div_HTML.appendChild(li);  // Add to current menu list
-
-    recipe.is_added = true;  // Update attribute to indicate recipe is in the "Menu"
 
     document.getElementById("add-button").disabled = true;  // Do not allow "Add To Menu" button to be clicked again
 
     meal_plan.addRecipe(recipe);  // Update object storing meal plan and shopping list
+    displayMenu();  // Update menu to show newly added recipe
     displayShoppingList();  // Update shopping list to include any new ingredients
 
 }
@@ -376,7 +441,6 @@ function removeFromMenu(recipe_id) {
     recipe_HTML.remove();
 
     const recipe = all_recipes[recipe_id];  // Recipe removed
-    recipe.is_added = false;  // Update attribute to indicate recipe is no longer in the "Menu"
     
     if (currently_selected === recipe_id) {  // Removed recipe is the one currently in the selected viewer 
 
@@ -388,12 +452,42 @@ function removeFromMenu(recipe_id) {
     }
 
     meal_plan.removeRecipe(recipe);  // Update object storing meal plan and shopping list
+    displayMenu();  // Update menu to remove recipe
     displayShoppingList();  // Update shopping list to reflect new ingredient count
 
 }
 
 
-/** TODO: Make this sort the shopping list first
+
+/**
+ * Updates the menu to display all selected recipes
+ */
+ function displayMenu() {
+
+    let menu_HTML = document.getElementById("menu-list");  // Reference to the HTML element displaying the menu
+
+    // Clear current content
+    menu_HTML.innerHTML = "";
+
+    // Sort menu alphabetically
+    meal_plan.menu.sort(sortByRecipeName);  
+
+    // Display each recipe
+    for (i = 0; i < meal_plan.menu.length; i++) {
+
+        let recipe = meal_plan.menu[i];
+
+        // Create new list item for the recipe
+        let li = document.createElement('li');
+        li.setAttribute("id", `menu-list-${recipe.id_num}`);
+        li.innerHTML = `<p>${recipe.name}</p><button onclick="removeFromMenu(${recipe.id_num})">Remove</button>`;
+        menu_HTML.appendChild(li);  // Add to current menu list
+
+    }
+
+}
+
+/**
  * Updates the shopping list to display ingredients in all recipes currently in
  * the menu
  */
@@ -404,7 +498,15 @@ function displayShoppingList() {
     // Clear current content
     list_HTML.innerHTML = "";  
 
-    // Add each ingredient
+    // Add heading 
+    let heading = document.createElement("li");
+    heading.innerHTML = `<h3>Ingredient</h3> <h3>Recipes</h3>`
+    list_HTML.appendChild(heading);
+
+    // Sort shopping list alphabetically
+    meal_plan.sortShoppingList();
+
+    // Display each ingredient
     for (i = 0; i < meal_plan.shopping_list.ingredients.length; i++) {
 
         // Define data to display
@@ -413,8 +515,8 @@ function displayShoppingList() {
 
         // Create new list item for the ingredient and count
         let item = document.createElement("li");
-        item.innerHTML = `<p>${ingredient}</p> <span>${occurrences}</span>`
-        list_HTML.appendChild(item)
+        item.innerHTML = `<p>${ingredient}</p> <span style="background: ${getColour(occurrences)}">${occurrences}</span>`;
+        list_HTML.appendChild(item);
 
     }
 
