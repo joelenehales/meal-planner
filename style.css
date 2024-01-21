@@ -1,29 +1,87 @@
 body {
-    width: 95vw;
+    width: 97vw;
     margin: auto;  /* Center horizontally on the page */
+    font-family: Trebuchet, sans-serif;
+    font-size: 1rem;
+    overflow-y: hidden;
+    color: #162910;
+    background: #172113;
 }
 
 main {
     display: flex;
 }
 
+section {
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid black;
+    background: #FFFDF7;
+    overflow-y: scroll;
+}
+
 .column {
     margin: 0 10px;
 }
 
+#column-1 { /* Recipe list */
+    width: calc(22vw - 20px);
+    min-width: 200px;
+}
+
+#column-1 section {
+    height: calc(85vh - 55px); /* Nearly full height minus top "Meal Planner" text and margin */
+}
+
+#column-2 {  /* Selected viewer */
+    width: calc(42vw - 20px);
+    min-width: 300px;
+}
+
+#column-2 section {
+    min-height: 250px;
+    height: 30vh;
+}
+
+#column-3 {  /* Menu and shopping list */
+    width: calc(33vw - 20px);
+    min-width: 300px;
+}
+
+#menu-section {
+    height: 150px;
+}
+
+#shopping-section {
+    height: calc(85vh - 235px); /* Nearly full height minus top "Meal Planner" text, menu section, and margins */
+}
+
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
+}
+
+h1 {  /* "Meal Planner" text */
+    font-size: 2rem;
+    margin: 10px 10px 0;
+    height: 45px;
+    color: #FFFDF7;
+}
+
+h2 { /* Section headings */
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+}
+
+h3 { /* "Ingredient"/"Recipe" subheadings */
+    font-size: 1.1rem;
+    margin-bottom: 5px;
 }
 
 p {
     margin: 10px 0;
 }
 
-section {
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid black;
-}
 
 ul { /* Recipe list, Menu, Shopping list */
     margin: 0;
@@ -31,6 +89,7 @@ ul { /* Recipe list, Menu, Shopping list */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
 }
 
 li {
@@ -38,12 +97,22 @@ li {
     list-style-type: none; /* Remove the bullet points */
 }
 
+button {
+    font-size: 1rem;
+}
+
+
 /* Recipe list */
-#recipe-list li {
+#recipe-list li {  /* Recipe item */
     margin: 5px;
 }
 
+
 /* Menu list */
+#menu-list {
+    margin: 0 5px;
+}
+
 #menu-list li {  /* Menu item */
     display: flex;
     justify-content: space-between;
@@ -59,6 +128,10 @@ li {
 }
 
 /* Selected viewer ingredients and shopping list */
+.ingredient-count {
+    margin: 0 5px;
+}
+
 .ingredient-count li {
     display: flex;
     justify-content: space-between;
@@ -76,7 +149,11 @@ li {
     margin-left: 5px;
     width: 25px;
     height: 25px;
-    text-align: center;
-    vertical-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
+    font-size: 0.9rem;
+    color: #ffffffd3;
+    opacity: 70%;
 }

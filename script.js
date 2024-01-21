@@ -327,13 +327,13 @@ function getColour(occurrences) {
     var colour;  // Hexadecimal colour to display the given recipe count with
 
     if (occurrences == 0) {
-        colour = "#fac3c3";  // Pastel red
+        colour = "#cc9156";  // Orange
     }
     else if (occurrences == 1) {
-        colour = "#faf2b9";  // Pastel yellow
+        colour = "#647a5d";  // Light Green
     }
     else {  // occurrences >= 2
-        colour = "#c8e1cc";  // Pastel green
+        colour = "#293f22";  // Green
     }
 
     return colour;
@@ -373,7 +373,7 @@ function select(recipe_id) {
         let colour;
 
         if (meal_plan.inMenu(recipe)) {  // Selected recipe is already in the menu
-            colour = "#e8e8e8";  // Colour occurrences gray
+            colour = "#adadad";  // Colour occurrences gray
         }
         else {
             colour = getColour(occurrences);  // Colour based on number
