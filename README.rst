@@ -24,5 +24,5 @@ Colour Palette
       - #647a5d
     * - White
       - #EEF0E5
-    * - Orange
-      - #CC9156
+    * - Terracotta
+      - #CC7B56

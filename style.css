@@ -16,7 +16,7 @@ section {
     margin: 10px 0;
     padding: 10px;
     border: 2px solid black;
-    background: #FFFDF7;
+    background: #fffdf7f3;
     overflow-y: scroll;
 }
 
@@ -63,9 +63,11 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {  /* "Meal Planner" text */
     font-size: 2rem;
-    margin: 10px 10px 0;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-bottom: 0;
     height: 45px;
-    color: #FFFDF7;
+    color: #fffdf7f8;
 }
 
 h2 { /* Section headings */
@@ -99,12 +101,65 @@ li {
 
 button {
     font-size: 1rem;
+    padding: 5px;
+    border: 2px solid #172113;
+    border-radius: 5px;
+}
+
+
+button:hover:enabled {
+    cursor: pointer;
 }
 
 
 /* Recipe list */
 #recipe-list li {  /* Recipe item */
     margin: 5px;
+}
+
+#recipe-list button {
+    width: 100%;
+    text-align: left;
+    background: #fffdf7;
+    filter: drop-shadow(0 0 1.12px #17211359);
+}
+
+#recipe-list button:hover {
+    background: #fffdf7e1;
+}
+
+/* Selected recipe viewer */
+#add-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    opacity: 100%;
+    background: #fffdf7f3;
+}
+
+#add-button p {
+    margin: 0;
+}
+
+#add-button svg {
+    fill: #162910;
+    margin-left: 6px;
+    height: 13px;
+    width: 13px;
+}
+
+#add-button:hover:enabled {
+    opacity: 100%;
+    background: #fffdf7e1;
+}
+
+#add-button:disabled {
+    opacity: 30%;
+}
+
+#add-button:disabled svg {
+    fill: #16291060;
 }
 
 
@@ -116,15 +171,27 @@ button {
 #menu-list li {  /* Menu item */
     display: flex;
     justify-content: space-between;
-    margin: 5px;
+    align-items: center;
+    height: 25px;
+    margin-bottom: 5px;
+    padding: 0;
 }
 
 #menu-list p {  /* Menu item text */
     margin-right: 5px;
 }
 
-#menu-list button {
+
+#menu-list svg { /* Remove button */
+    height: 15px;
+    width: 15px;
+    fill: #cc7b56;
     margin-left: 5px;
+}
+
+#menu-list svg:hover {
+    opacity: 80%;
+    cursor: pointer;
 }
 
 /* Selected viewer ingredients and shopping list */
@@ -135,6 +202,8 @@ button {
 .ingredient-count li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 25px;
     margin-bottom: 5px;
 }
 
@@ -147,13 +216,13 @@ button {
 .ingredient-count span {  /* Number of recipes */
     margin: 0;
     margin-left: 5px;
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     display: flex; 
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #ffffffd3;
     opacity: 70%;
 }

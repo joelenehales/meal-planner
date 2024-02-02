@@ -222,27 +222,34 @@ class MealPlan {
 
 // TODO: Find a better way to store this
 /* Define ingredients */
-const bagel = new Ingredient('Bagel'); /* Bakery*/
+const bagel = new Ingredient('Bagel');  /* Bakery*/
 const bread = new Ingredient('Bread');
+const tortilla = new Ingredient('Tortillas');
 
 const egg = new Ingredient('Eggs');  /* Dairy */
 const milk = new Ingredient('Milk');
 
-const bacon = new Ingredient('Bacon'); /* Meat */
+const bacon = new Ingredient('Bacon');  /* Meat */
 const beef_ground = new Ingredient('Ground Beef');
 const chicken_breast = new Ingredient('Chicken (Breast)');
 const chicken_thigh = new Ingredient('Chicken (Thigh)');
 
-const chickpeas = new Ingredient('Chickpeas'); /* Pantry */
+const beans_black = new Ingredient('Black Beans');  /* Pantry */
+const corn_canned = new Ingredient('Canned Corn');
+const tomato_canned = new Ingredient('Canned Tomatoes');
+const chickpeas = new Ingredient('Chickpeas');
 const broth_chicken = new Ingredient('Chicken Broth');
 const broth_vegetable = new Ingredient('Vegetable Broth');
-const tomato_canned = new Ingredient('Canned Tomatoes');
+
 
 const arugula = new Ingredient('Arugula'); /* Produce */
 const avocado = new Ingredient('Avocado');
-const lettuce = new Ingredient('Lettuce');
-const onion = new Ingredient('Onion');
 const pepper = new Ingredient('Bell Pepper');
+const garlic = new Ingredient('Garlic')
+const lemon = new Ingredient('Lemon');
+const lettuce = new Ingredient('Lettuce');
+const lime = new Ingredient('Lime');
+const onion = new Ingredient('Onion');
 const potato = new Ingredient('Potato');
 const tomato_beefsteak = new Ingredient('Beefsteak Tomato');
 const tomato_cherry = new Ingredient('Cherry Tomatos');
@@ -250,9 +257,10 @@ const tomato_cherry = new Ingredient('Cherry Tomatos');
 
 /* Define recipes */
 const bagel_sandwich = new Recipe('Bagel Sandwich', [arugula, bagel, bacon, egg]);
-const shakshouka = new Recipe('Shakshouka', [tomato_canned, onion, egg]);
+const shakshouka = new Recipe('Shakshouka', [tomato_canned, onion, egg, garlic]);
 const roasted_potatoes = new Recipe('Roasted Potatoes', [potato]);
 const avocado_toast = new Recipe('Avocado Toast', [avocado, bread, tomato_cherry]);
+const chicken_taco = new Recipe('Chicken Tacos', [chicken_thigh, tortilla, lettuce, tomato_beefsteak, onion, lime, beans_black, corn_canned]);
 
 
 
@@ -327,7 +335,7 @@ function getColour(occurrences) {
     var colour;  // Hexadecimal colour to display the given recipe count with
 
     if (occurrences == 0) {
-        colour = "#cc9156";  // Orange
+        colour = "#cc7b56";  // Terracotta
     }
     else if (occurrences == 1) {
         colour = "#647a5d";  // Light Green
@@ -393,8 +401,9 @@ function select(recipe_id) {
 
     var add_button = document.createElement('button');  // Create new button 
     add_button.setAttribute("id", "add-button");
-    add_button.style.display = "block";
-    add_button.innerText = "Add to Menu";
+    add_button.style.display = "flex";
+    add_button.innerHTML = `<p>Add to Menu</p><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.059
+    309.059" xml:space="preserve"> <path d="M280.71,126.181h-97.822V28.338C182.889,12.711,170.172,0,154.529,0S126.17,12.711,126.17,28.338 v97.843H28.359C12.722,126.181,0,138.903,0,154.529c0,15.621,12.717,28.338,28.359,28.338h97.811v97.843 c0,15.632,12.711,28.348,28.359,28.348c15.643,0,28.359-12.717,28.359-28.348v-97.843h97.822 c15.632,0,28.348-12.717,28.348-28.338C309.059,138.903,296.342,126.181,280.71,126.181z"/></svg>`;
     add_button.disabled = true;
     add_button_div.appendChild(add_button);  // Add button below viewer
 
@@ -480,7 +489,11 @@ function removeFromMenu(recipe_id) {
         // Create new list item for the recipe
         let li = document.createElement('li');
         li.setAttribute("id", `menu-list-${recipe.id_num}`);
-        li.innerHTML = `<p>${recipe.name}</p><button onclick="removeFromMenu(${recipe.id_num})">Remove</button>`;
+        li.innerHTML = `<p>${recipe.name}</p>
+        <svg onclick="removeFromMenu(${recipe.id_num})" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xml:space="preserve"><path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
+        c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55
+        c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505
+        c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/></svg>`;
         menu_HTML.appendChild(li);  // Add to current menu list
 
     }
