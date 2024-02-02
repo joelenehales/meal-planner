@@ -26,3 +26,5 @@ Colour Palette
       - #EEF0E5
     * - Terracotta
       - #CC7B56
+    * - Red
+      - #D66152

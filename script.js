@@ -18,6 +18,12 @@ class Ingredient {
 }
 
 
+// TODO: Add a meal type to each recipe (Breakfast, lunch, dinner). Can use to
+// sort/colour recipes
+
+// TODO: Add a method that displays the recipes with overlapping ingredients at
+// the top of the recipe list, remainder alphabetized
+
 /**
  * Class representing a recipe.
  */
@@ -220,13 +226,14 @@ class MealPlan {
 }
 
 
-// TODO: Find a better way to store this
+// TODO: Store this in a database, once I finish the course
 /* Define ingredients */
 const bagel = new Ingredient('Bagel');  /* Bakery*/
 const bread = new Ingredient('Bread');
 const tortilla = new Ingredient('Tortillas');
 
 const egg = new Ingredient('Eggs');  /* Dairy */
+const cheese_feta = new Ingredient('feta');
 const milk = new Ingredient('Milk');
 
 const bacon = new Ingredient('Bacon');  /* Meat */
@@ -239,28 +246,39 @@ const corn_canned = new Ingredient('Canned Corn');
 const tomato_canned = new Ingredient('Canned Tomatoes');
 const chickpeas = new Ingredient('Chickpeas');
 const broth_chicken = new Ingredient('Chicken Broth');
+const rice = new Ingredient('Rice');
 const broth_vegetable = new Ingredient('Vegetable Broth');
 
-
-const arugula = new Ingredient('Arugula'); /* Produce */
+const arugula = new Ingredient('Arugula');  /* Produce */
 const avocado = new Ingredient('Avocado');
+const basil = new Ingredient('Basil');
 const pepper = new Ingredient('Bell Pepper');
+const carrot= new Ingredient('Carrot');
 const garlic = new Ingredient('Garlic')
 const lemon = new Ingredient('Lemon');
 const lettuce = new Ingredient('Lettuce');
 const lime = new Ingredient('Lime');
 const onion = new Ingredient('Onion');
+const peas = new Ingredient('Peas');
 const potato = new Ingredient('Potato');
+const spinach= new Ingredient('Spinach');
 const tomato_beefsteak = new Ingredient('Beefsteak Tomato');
 const tomato_cherry = new Ingredient('Cherry Tomatos');
 
 
 /* Define recipes */
-const bagel_sandwich = new Recipe('Bagel Sandwich', [arugula, bagel, bacon, egg]);
-const shakshouka = new Recipe('Shakshouka', [tomato_canned, onion, egg, garlic]);
+const bagel_sandwich = new Recipe('Bagel Sandwich', [arugula, bagel, bacon, egg, avocado]);
+const shakshouka = new Recipe('Shakshouka', [tomato_canned, onion, egg, garlic, spinach]);
 const roasted_potatoes = new Recipe('Roasted Potatoes', [potato]);
-const avocado_toast = new Recipe('Avocado Toast', [avocado, bread, tomato_cherry]);
+const avocado_toast = new Recipe('Avocado Toast', [avocado, bread, tomato_cherry, cheese_feta]);
 const chicken_taco = new Recipe('Chicken Tacos', [chicken_thigh, tortilla, lettuce, tomato_beefsteak, onion, lime, beans_black, corn_canned]);
+const chicken_blt = new Recipe('Chicken BLT', [chicken_breast, bacon, lettuce, tomato_beefsteak]);
+const salad_garden = new Recipe('Garden Salad', [lettuce, tomato_cherry, onion, cheese_feta]);
+const breakfast_bowl = new Recipe('Breakfast Bowl', [egg, potato, tomato_cherry, spinach, pepper, onion]);
+const sheet_pan = new Recipe('Sheet Pan', [chicken_breast, potato, carrot, onion, pepper]);
+const crispy_chicken_pasta = new Recipe('Crispy Chicken Pasta', [chicken_breast, tomato_cherry, garlic, basil]);
+const fried_rice = new Recipe('Egg Fried Rice', [egg, carrot, peas, rice]);
+const stir_fry = new Recipe('Chicken Stir Fry', [chicken_breast, pepper, rice]);
 
 
 
@@ -430,8 +448,11 @@ function addToMenu(recipe_id) {
     document.getElementById("add-button").disabled = true;  // Do not allow "Add To Menu" button to be clicked again
 
     meal_plan.addRecipe(recipe);  // Update object storing meal plan and shopping list
+
+    select(currently_selected)  // Reset selected viewer to gray-out values if needed
     displayMenu();  // Update menu to show newly added recipe
     displayShoppingList();  // Update shopping list to include any new ingredients
+    
 
 }
 
@@ -461,6 +482,8 @@ function removeFromMenu(recipe_id) {
     }
 
     meal_plan.removeRecipe(recipe);  // Update object storing meal plan and shopping list
+
+    select(currently_selected)  // Reset selected viewer to ungray-out values if needed
     displayMenu();  // Update menu to remove recipe
     displayShoppingList();  // Update shopping list to reflect new ingredient count
 
