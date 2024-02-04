@@ -8,6 +8,23 @@
     src: url("./Rubik.ttf") format("opentype");
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 10px 0 15px;
+    height: 45px;
+}
+
+footer {
+    margin: 0 15px;
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+
 body {
     width: 97vw;
     margin: auto;  /* Center horizontally on the page */
@@ -74,11 +91,23 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {  /* "Meal Planner" text */
     font-size: 1.8rem;
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-bottom: 0;
-    height: 45px;
+    margin: -5px 0 -12px;
     color: #fffdf7f8;
+}
+
+header a {
+    display: flex;
+    align-content: center;
+}
+
+header svg {  /* GitHub Logo */
+    fill: #fffdf7ee;
+    height: 28px;
+}
+
+header svg:hover {
+    opacity: 80%;
+    transition: 150ms ease-in;
 }
 
 h2 { /* Section headings */
@@ -126,6 +155,19 @@ button {
 button:hover:enabled {
     cursor: pointer;
 }
+
+footer p, a {
+    margin: 0;
+    font-family: TiroDevanagariSanskrit;
+    font-size: 0.9rem;
+    color: #fffdf7ee;
+    text-decoration: none;
+}
+
+footer a:hover {
+    opacity: 90%;
+}
+
 
 
 /* Recipe list */
