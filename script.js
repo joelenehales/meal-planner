@@ -233,7 +233,7 @@ const bread = new Ingredient('Bread');
 const tortilla = new Ingredient('Tortillas');
 
 const egg = new Ingredient('Eggs');  /* Dairy */
-const cheese_feta = new Ingredient('feta');
+const cheese_feta = new Ingredient('Feta');
 const milk = new Ingredient('Milk');
 
 const bacon = new Ingredient('Bacon');  /* Meat */

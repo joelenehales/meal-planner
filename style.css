@@ -1,7 +1,17 @@
+@font-face {
+    font-family: TiroDevanagariSanskrit;
+    src: url("./TiroDevanagariSanskrit-Regular.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: Rubik;
+    src: url("./Rubik.ttf") format("opentype");
+}
+
 body {
     width: 97vw;
     margin: auto;  /* Center horizontally on the page */
-    font-family: Trebuchet, sans-serif;
+    font-family: Rubik;
     font-size: 1rem;
     overflow-y: hidden;
     color: #162910;
@@ -13,9 +23,9 @@ main {
 }
 
 section {
-    margin: 10px 0;
+    margin: 8px 0 10px;
     padding: 10px;
-    border: 2px solid black;
+    border-radius: 2px;
     background: #fffdf7f3;
     overflow-y: scroll;
 }
@@ -25,7 +35,7 @@ section {
 }
 
 #column-1 { /* Recipe list */
-    width: calc(22vw - 20px);
+    width: calc(25vw - 20px);
     min-width: 200px;
 }
 
@@ -34,7 +44,7 @@ section {
 }
 
 #column-2 {  /* Selected viewer */
-    width: calc(42vw - 20px);
+    width: calc(40vw - 20px);
     min-width: 300px;
 }
 
@@ -44,7 +54,7 @@ section {
 }
 
 #column-3 {  /* Menu and shopping list */
-    width: calc(33vw - 20px);
+    width: calc(32vw - 20px);
     min-width: 300px;
 }
 
@@ -59,29 +69,30 @@ section {
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    font-family: TiroDevanagariSanskrit;
 }
 
 h1 {  /* "Meal Planner" text */
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-top: 15px;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-bottom: 0;
     height: 45px;
     color: #fffdf7f8;
 }
 
 h2 { /* Section headings */
-    font-size: 1.35rem;
+    font-size: 1.42rem;
     margin-bottom: 10px;
 }
 
 #column-1 h2 {  /* "Recipe List" heading */
-    margin-bottom: 5px;  /* Remove double spacing from the first recipe list item */
+    margin-bottom: 2px;  /* Remove extra spacing from the first recipe list item */
 }
 
 
 h3 { /* "Ingredient"/"Recipe" subheadings */
-    font-size: 1.1rem;
+    font-size: 1.18rem;
     margin-bottom: 5px;
 }
 
@@ -105,8 +116,9 @@ li {
 }
 
 button {
+    font-family: Rubik;
     font-size: 1rem;
-    border: 2px solid #172113;
+    border: 2px solid #172113e3;
     border-radius: 5px;
 }
 
@@ -224,7 +236,7 @@ button:hover:enabled {
     margin-left: 5px;
     width: 22px;
     height: 22px;
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
