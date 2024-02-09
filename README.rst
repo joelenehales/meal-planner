@@ -5,6 +5,11 @@ Meal Planner
 A weekly meal planning app that helps you select meals and create shopping lists
 designed to reduce food waste.
 
+.. image:: meal-planner-screenshot.JPG
+  :width: 400
+  :alt: Meal Planner App
+  
+
 Colour Palette
 --------------
 
