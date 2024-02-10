@@ -2,34 +2,16 @@
 Meal Planner
 ============
 
+.. image:: https://api.netlify.com/api/v1/badges/da561b14-65ea-4084-94f1-783e28f58515/deploy-status
+   :target: https://app.netlify.com/sites/meal-planner-joelenehales/deploys
+   :alt: Netlify Deploy Status
+
 A weekly meal planning app that helps you select meals and create shopping lists
 designed to reduce food waste.
 
-.. image:: meal-planner-screenshot.JPG
-  :width: 400
-  :alt: Meal Planner App
-  
 
-Colour Palette
---------------
+.. raw:: html
 
-.. list-table::
-    :widths: 20 20
-    :header-rows: 1
-
-    * - Colour
-      - Hex
-    * - Darkest Green
-      - #172113
-    * - Dark Green
-      - #162910
-    * - Green
-      - #293f22
-    * - Light Green
-      - #647a5d
-    * - White
-      - #EEF0E5
-    * - Terracotta
-      - #CC7B56
-    * - Red
-      - #D66152
+  <h1 align="center">
+    <a href="https://meal-planner-joelenehales.netlify.app/" target="_blank"><img width="700" src="meal-planner-screenshot.JPG" alt="Meal Planner Web App"></a>
+  </h1>
